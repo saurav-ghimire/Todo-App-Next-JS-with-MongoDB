@@ -11,7 +11,13 @@ const TodoForm = () => {
   
   const handle = (e) => {
     e.preventDefault();
-    console.log('Button is clicked', title.current.value, description.current.value)
+    try{
+      
+      console.log('Button is clicked', title.current.value, description.current.value)
+    }
+    catch(error){
+      console.log(error);
+    }
   }
 
   return (
