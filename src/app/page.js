@@ -1,9 +1,22 @@
 // components/TodoForm.js
+"use client"
+
+import { useRef } from 'react';
+
+
 const TodoForm = () => {
+  const title = useRef("")
+  const description = useRef("")
+  
+  const handle = (e) => {
+    e.preventDefault();
+    console.log('Button is clicked', title.current.value, description.current.value)
+  }
+
   return (
     <div className="max-w-xl mx-auto bg-white p-8 mt-8 rounded-md shadow-md">
       <h2 className="text-2xl font-bold mb-4">Add Todo</h2>
-      <form>
+      <form onSubmit={handle} >
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
             Title
@@ -12,6 +25,7 @@ const TodoForm = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="title"
             type="text"
+            ref={title}
             placeholder="Enter title for todo"
           />
         </div>
@@ -24,6 +38,7 @@ const TodoForm = () => {
             id="description"
             rows="4"
             placeholder="Enter description for todo"
+            ref={description}
           ></textarea>
         </div>
         <div className="flex justify-end">
