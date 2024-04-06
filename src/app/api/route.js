@@ -9,7 +9,8 @@ const loadDB = () => {
 
 
 export async function GET(request) {
-  return NextResponse.json({ msg: 'Get Method Hit' }, { status: 500 })
+  const allTodo = await Todo.find({});
+  return NextResponse.json({ todos: allTodo }, { status: 200 })
 }
 
 export async function POST(request) {
