@@ -7,12 +7,22 @@ import { useRef } from 'react';
 import { toast } from 'react-toastify';
 
 const TodoForm = () => {
-  const title = useRef("")
-  const description = useRef("")
+  const title = useRef("");
+  const description = useRef("");
   
   const handle = async (e) => {
     e.preventDefault();
     
+    if(!title.current.value){
+      toast.error('Title is Required', {
+        autoClose: 3000,
+        });
+    }
+    if(!description.current.value){
+      toast.error('Description is Required', {
+        autoClose: 3000,
+        });
+    }
     try{
       let newTodo = {
       title: title.current.value,
@@ -27,27 +37,18 @@ const TodoForm = () => {
 
         toast.success('Todo Created!', {
           position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light"
+          autoClose: 3000,
           });
 
       }
     }
     catch(error){
+      console.log(error)
+      if(!description.current.value || !description.current.value){
+        return
+      }
       toast.error('Server Error', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "light"
+        autoClose: 3000,
         });
     }
   }
