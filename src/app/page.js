@@ -2,21 +2,53 @@
 "use client"
 
 import TodoTable from '@/components/Form/page';
+import axios from 'axios';
 import { useRef } from 'react';
-
+import { toast } from 'react-toastify';
 
 const TodoForm = () => {
   const title = useRef("")
   const description = useRef("")
   
-  const handle = (e) => {
+  const handle = async (e) => {
     e.preventDefault();
+    
     try{
-      
-      console.log('Button is clicked', title.current.value, description.current.value)
+      let newTodo = {
+      title: title.current.value,
+      description: description.current.value,
+      }
+      const response = await axios.post('/api', newTodo);
+      if(response.status === 200){
+        
+        // Reseting Value
+        title.current.value = "";
+        description.current.value = "";
+
+        toast.success('Todo Created!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light"
+          });
+
+      }
     }
     catch(error){
-      console.log(error);
+      toast.error('Server Error', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light"
+        });
     }
   }
 
