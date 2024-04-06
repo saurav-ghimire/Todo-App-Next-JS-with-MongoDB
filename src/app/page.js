@@ -1,6 +1,7 @@
 // components/TodoForm.js
 "use client"
 
+import TodoTable from '@/components/Form/page';
 import { useRef } from 'react';
 
 
@@ -14,6 +15,7 @@ const TodoForm = () => {
   }
 
   return (
+    <>
     <div className="max-w-xl mx-auto bg-white p-8 mt-8 rounded-md shadow-md">
       <h2 className="text-2xl font-bold mb-4">Add Todo</h2>
       <form onSubmit={handle} >
@@ -51,6 +53,8 @@ const TodoForm = () => {
         </div>
       </form>
     </div>
+    <TodoTable />
+    </>
   );
 };
 
