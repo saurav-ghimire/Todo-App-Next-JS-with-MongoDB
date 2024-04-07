@@ -9,7 +9,7 @@ const loadDB = () => {
 
 
 export async function GET(request) {
-  const allTodo = await Todo.find({});
+  const allTodo = await Todo.find({}).sort({ createdAt: -1 });
   return NextResponse.json({ todos: allTodo }, { status: 200 })
 }
 
@@ -28,5 +28,19 @@ export async function DELETE(request) {
   const id  = await request.nextUrl.searchParams.get('id'); // Get id from URL parameter
   await Todo.findByIdAndDelete(id)
   return NextResponse.json({ msg: 'Todo Deleted' }, { status: 200 })
+}
+
+export async function PUT(request) {
+  loadDB();
+  const id  = await request.nextUrl.searchParams.get('id'); // Get id from URL parameter
+  
+  
+  await Todo.findByIdAndUpdate(id,{
+    $set:{
+      status:'Completed'
+    }
+  })
+  
+  return NextResponse.json({ msg: 'Todo Updated' }, { status: 200 })
 }
 

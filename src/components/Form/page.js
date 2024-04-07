@@ -21,6 +21,20 @@ const TodoTable = () => {
     }
   };
 
+  const handleUpdate = async (id) => {
+   const response = await axios.put('/api', {}, {
+    params:{
+      id:id
+    }
+   });
+   fetchAndSetData(); // Fetch updated data after delete
+    if (response.status === 200) {
+      toast.success('Item is Updated', {
+        autoClose: 3000,
+      });
+    }
+  }
+
   useEffect(() => {
     fetchAndSetData(); // Fetch data on mount
   }, [fetchAndSetData]); // Run when fetchAndSetData changes
@@ -42,15 +56,17 @@ const TodoTable = () => {
             todoState.map((todo, index) =>(
               <tr key={index + 1}>
                 <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{todo.title}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{todo.description}</td>
+                <td className={`px-6 py-4 whitespace-nowrap ${todo.status === 'Completed' && 'line-through'}`}>{todo.title}</td>
+                <td className={`px-6 py-4 whitespace-nowrap ${todo.status === 'Completed' && 'line-through'}`}>{todo.description}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${todo.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}`}>{todo.status}</span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button className="bg-indigo-600 text-white p-1">
+                  {todo.status === 'Pending' && (
+                  <button className="bg-indigo-600 text-white p-1" onClick={() => handleUpdate(todo._id)}>
                     {todo.status === 'Pending' ? 'Mark Completed' : 'Mark Pending'}
                   </button>
+                  )}
                   <button className="ml-2 p-1 bg-red-600 text-white" onClick={() => handleDelete(todo._id)}>
                     Delete
                   </button>
