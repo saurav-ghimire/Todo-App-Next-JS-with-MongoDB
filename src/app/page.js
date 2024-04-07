@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useRef } from 'react';
 import { toast } from 'react-toastify';
 
+
 const TodoForm = () => {
   const title = useRef("");
   const description = useRef("");
@@ -55,7 +56,7 @@ const TodoForm = () => {
 
   return (
     <>
-    <div className="max-w-xl mx-auto bg-white p-8 mt-8 rounded-md shadow-md">
+    <div className="max-w-xl mx-auto bg-white p-10 mt-8 rounded-md shadow-md">
       <h2 className="text-2xl font-bold mb-4">Add Todo</h2>
       <form onSubmit={handle} >
         <div className="mb-4">

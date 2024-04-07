@@ -4,6 +4,9 @@ import Navbar from "@/components/Navbar/page";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import TodoContextProvider from "../lib/ContextProvider";
+import Footer from "@/components/Footer/Footer";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -12,13 +15,17 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        {children}
-
-        <ToastContainer />
+      <TodoContextProvider>
+          <Navbar />
+          
+          {children}
+          <Footer />
+          <ToastContainer />
+        </TodoContextProvider>
         </body>
     </html>
   );

@@ -1,7 +1,11 @@
 // components/Navbar.js
+"use client"
 import Link from 'next/link';
+import React from 'react';
+
 
 const Navbar = () => {
+  
   return (
     <nav className="bg-gray-800 shadow-lg">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -9,7 +13,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg	uppercase font-bold	">
-              Todo App
+              TODO APP
             </Link>
           </div>
           {/* Navigation Links */}

@@ -1,42 +1,32 @@
+"use client"
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { toast } from 'react-toastify';
+import TodoContext from "@/lib/TodoContext";
+
 const TodoTable = () => {
-  const [todoState, setTodoState] = useState([]);
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('/api');
-      setTodoState(response.data.todos);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-  
-  useEffect(() => {
-
-    fetchData();
-  }, []);
+  const { todoState, setTodoState, fetchAndSetData } = useContext(TodoContext);
 
   const handleDelete = async (id) => {
-    
     const response = await axios.delete(`/api`, {
-     params:{
-       id:id
-     }
+      params: {
+        id: id
+      }
     });
-    fetchData()
-    if(response.status === 200){
-     toast.success('Item is Deleted', {
-       autoClose: 3000,
-       });
+    fetchAndSetData(); // Fetch updated data after delete
+    if (response.status === 200) {
+      toast.success('Item is Deleted', {
+        autoClose: 3000,
+      });
     }
- 
-   }
-  
+  };
+
+  useEffect(() => {
+    fetchAndSetData(); // Fetch data on mount
+  }, [fetchAndSetData]); // Run when fetchAndSetData changes
 
   return (
-    <div className="max-w-4xl mx-auto mt-8">
+    <div className="max-w-4xl mx-auto mt-8 m-8">
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
@@ -48,25 +38,24 @@ const TodoTable = () => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
-         
           { 
             todoState.map((todo, index) =>(
               <tr key={index + 1}>
-              <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{todo.title}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{todo.description}</td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${todo.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}`}>{todo.status}</span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <button className="bg-indigo-600 text-white p-1">
-                  {todo.status === 'Pending' ? 'Mark Completed' : 'Mark Pending'}
-                </button>
-                <button className="ml-2 p-1 bg-red-600 text-white" onClick={() => handleDelete(todo._id)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
+                <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{todo.title}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{todo.description}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${todo.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}`}>{todo.status}</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <button className="bg-indigo-600 text-white p-1">
+                    {todo.status === 'Pending' ? 'Mark Completed' : 'Mark Pending'}
+                  </button>
+                  <button className="ml-2 p-1 bg-red-600 text-white" onClick={() => handleDelete(todo._id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
             ))
           }
         </tbody>
