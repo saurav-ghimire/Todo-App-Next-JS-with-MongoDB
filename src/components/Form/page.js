@@ -1,22 +1,38 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { toast } from 'react-toastify';
 const TodoTable = () => {
   const [todoState, setTodoState] = useState([]);
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('/api');
+      setTodoState(response.data.todos);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/api');
-        setTodoState(response.data.todos);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
 
     fetchData();
   }, []);
 
+  const handleDelete = async (id) => {
+    
+    const response = await axios.delete(`/api`, {
+     params:{
+       id:id
+     }
+    });
+    fetchData()
+    if(response.status === 200){
+     toast.success('Item is Deleted', {
+       autoClose: 3000,
+       });
+    }
+ 
+   }
   
 
   return (
@@ -46,7 +62,7 @@ const TodoTable = () => {
                 <button className="bg-indigo-600 text-white p-1">
                   {todo.status === 'Pending' ? 'Mark Completed' : 'Mark Pending'}
                 </button>
-                <button className="ml-2 p-1 bg-red-600 text-white">
+                <button className="ml-2 p-1 bg-red-600 text-white" onClick={() => handleDelete(todo._id)}>
                   Delete
                 </button>
               </td>

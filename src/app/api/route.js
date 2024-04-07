@@ -23,3 +23,10 @@ export async function POST(request) {
   return NextResponse.json({ msg: 'Todo Created' }, { status: 200 })
 }
 
+export async function DELETE(request) {
+  loadDB();
+  const id  = await request.nextUrl.searchParams.get('id'); // Get id from URL parameter
+  await Todo.findByIdAndDelete(id)
+  return NextResponse.json({ msg: 'Todo Deleted' }, { status: 200 })
+}
+
