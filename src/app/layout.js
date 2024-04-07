@@ -19,13 +19,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-      <TodoContextProvider>
-          <Navbar />
-          
-          {children}
-          <Footer />
-          <ToastContainer />
-        </TodoContextProvider>
+        <div className="overflow-hidden">
+          <TodoContextProvider>
+            <Navbar />
+            
+            {children}
+            <Footer />
+            <ToastContainer />
+          </TodoContextProvider>
+        </div>
         </body>
     </html>
   );
