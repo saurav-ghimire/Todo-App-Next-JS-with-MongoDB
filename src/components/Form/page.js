@@ -13,7 +13,7 @@ const TodoTable = () => {
   useEffect(() => {
     console.log('i am in useEffect');
     fetchData();
-  }, []); // Empty dependency array for fetch on mount
+  }); // Empty dependency array for fetch on mount
 
   console.log('i am after useEffect');
   
