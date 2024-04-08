@@ -8,10 +8,7 @@ const TodoTable = async () => {
   
   const { todoState, setTodoState, fetchData } = useContext(TodoContext);
   
-  const response = await axios.get('https://todo-app-next-js-with-mongo-db.vercel.app/api');
-  setTodoState(response.data.todos);
-
-  console.log('i am after useEffect');
+  fetchData();
   
   const handleDelete = async (id) => {
     const response = await axios.delete(`https://todo-app-next-js-with-mongo-db.vercel.app/api`, {

@@ -29,7 +29,7 @@ const TodoForm = () => {
       title: title.current.value,
       description: description.current.value,
       }
-      const response = await axios.post('/api', newTodo);
+      const response = await axios.post('https://todo-app-next-js-with-mongo-db.vercel.app/api', newTodo);
       if(response.status === 200){
         
         // Reseting Value
