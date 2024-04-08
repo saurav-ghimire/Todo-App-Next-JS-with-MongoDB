@@ -10,7 +10,7 @@ function About() {
 
       <p className="leading-relaxed text-lg m-1">Welcome to Todo App! This simple and intuitive app is designed to help you organize your tasks, prioritize your day, and stay on top of your to-do list effortlessly.</p>
 
-      <p className="leading-relaxed text-lg mt-2">Whether you're managing work projects, personal goals, or simply jotting down daily tasks, Todo App is here to make your life easier. With features like easy task creation, status updates, and quick task deletion, you'll find yourself staying productive and focused throughout the day.</p>
+      <p className="leading-relaxed text-lg mt-2">Whether you&apos;re managing work projects, personal goals, or simply jotting down daily tasks, Todo App is here to make your life easier. With features like easy task creation, status updates, and quick task deletion, you&apos;ll find yourself staying productive and focused throughout the day.</p>
 
       <p className="leading-relaxed text-lg mt-2">Get started now by adding your first task and experience the satisfaction of checking items off your list! <br/>Happy organizing!</p>
       <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-8 mb-6"></span>
