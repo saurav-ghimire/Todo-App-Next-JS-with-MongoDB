@@ -3,11 +3,12 @@
 
 import TodoTable from '@/components/Form/page';
 import axios from 'axios';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { toast } from 'react-toastify';
-
+import TodoContext from "@/lib/TodoContext";
 
 const TodoForm = () => {
+  const { fetchData } = useContext(TodoContext);
   const title = useRef("");
   const description = useRef("");
   
@@ -29,12 +30,14 @@ const TodoForm = () => {
       title: title.current.value,
       description: description.current.value,
       }
-      const response = await axios.post('https://todo-app-next-js-with-mongo-db.vercel.app/api', newTodo);
+      const response = await axios.post('/api', newTodo);
       if(response.status === 200){
         
         // Reseting Value
         title.current.value = "";
         description.current.value = "";
+
+        fetchData();
 
         toast.success('Todo Created!', {
           position: "top-right",

@@ -9,7 +9,7 @@ const TodoContextProvider = ({ children }) => {
   // Define fetchData function
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://todo-app-next-js-with-mongo-db.vercel.app/api');
+      const response = await axios.get('/api');
       setTodoState(response.data.todos);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -19,7 +19,7 @@ const TodoContextProvider = ({ children }) => {
   // useEffect to fetch data on mount and when todoState changes
   useEffect(() => {
     fetchData();
-  }); // Run once on mount
+  },[]); // Run once on mount
 
 
   // Define value object with todoState, setTodoState, and fetchAndSetData

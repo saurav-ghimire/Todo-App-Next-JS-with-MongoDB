@@ -4,46 +4,50 @@ import { useEffect, useState, useContext } from "react";
 import { toast } from 'react-toastify';
 import TodoContext from "@/lib/TodoContext";
 
-const TodoTable = async () => {
+const TodoTable = () => {
   
   const { todoState, setTodoState, fetchData } = useContext(TodoContext);
   
-  fetchData();
-  
+  useEffect(() => {
+    fetchData();
+    console.log('i am in useEffect');
+  },[]);
+
+  console.log('i am after useEffect');
+
   const handleDelete = async (id) => {
-    const response = await axios.delete(`https://todo-app-next-js-with-mongo-db.vercel.app/api`, {
+    const response = await axios.delete(`/api`, {
       params: {
         id: id
       }
     });
-    
+    console.log('i am in Delete Fetch');
+    fetchData(); // Fetch updated data after delete
     if (response.status === 200) {
       toast.success('Item is Deleted', {
         autoClose: 3000,
       });
-      fetchData(); // Fetch updated data after delete
     }
   };
 
   const handleUpdate = async (id) => {
-   const response = await axios.put('https://todo-app-next-js-with-mongo-db.vercel.app/api', {}, {
+   const response = await axios.put('/api', {}, {
     params:{
       id:id
     }
    });
-   
    console.log('i am in Update Fetch');
-   
-   if (response.status === 200) {
+   fetchData(); // Fetch updated data after update
+    if (response.status === 200) {
       toast.success('Item is Updated', {
         autoClose: 3000,
       });
-      fetchData(); // Fetch updated data after update
     }
   }
 
   return (
     <div className="max-w-4xl mx-auto mt-8 m-8">
+      {console.log('is here now')}
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
