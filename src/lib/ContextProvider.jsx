@@ -30,7 +30,7 @@ const TodoContextProvider = ({ children }) => {
   const value = {
     todoState,
     setTodoState,
-    fetchAndSetData
+    fetchData
   };
 
   return (

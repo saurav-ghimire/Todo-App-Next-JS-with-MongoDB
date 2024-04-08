@@ -5,20 +5,25 @@ import { toast } from 'react-toastify';
 import TodoContext from "@/lib/TodoContext";
 
 const TodoTable = () => {
-  const { todoState, setTodoState, fetchAndSetData } = useContext(TodoContext);
+  
+  const { todoState, setTodoState, fetchData } = useContext(TodoContext);
+  
+  console.log('i am before useEffect');
   
   useEffect(() => {
-    console.log('i am loaded');
-    fetchAndSetData();
-  }, []);
+    console.log('i am in useEffect');
+    fetchData();
+  });
 
+  console.log('i am after useEffect');
   const handleDelete = async (id) => {
     const response = await axios.delete(`https://todo-app-next-js-with-mongo-db.vercel.app/api`, {
       params: {
         id: id
       }
     });
-    fetchAndSetData(); // Fetch updated data after delete
+    console.log('i am in Delete Fetch');
+    fetchData(); // Fetch updated data after delete
     if (response.status === 200) {
       toast.success('Item is Deleted', {
         autoClose: 3000,
@@ -32,7 +37,8 @@ const TodoTable = () => {
       id:id
     }
    });
-   fetchAndSetData(); // Fetch updated data after delete
+   console.log('i am in Update Fetch');
+   fetchData(); // Fetch updated data after delete
     if (response.status === 200) {
       toast.success('Item is Updated', {
         autoClose: 3000,
@@ -40,9 +46,6 @@ const TodoTable = () => {
     }
   }
 
-  useEffect(() => {
-    fetchAndSetData(); // Fetch data on mount
-  }, [fetchAndSetData]); // Run when fetchAndSetData changes
 
   return (
     <div className="max-w-4xl mx-auto mt-8 m-8">
