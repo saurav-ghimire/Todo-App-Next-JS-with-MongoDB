@@ -6,7 +6,7 @@ import TodoContext from "@/lib/TodoContext";
 
 const TodoTable = () => {
   const { todoState, setTodoState, fetchAndSetData } = useContext(TodoContext);
-
+  fetchAndSetData();
   const handleDelete = async (id) => {
     const response = await axios.delete(`/api`, {
       params: {
