@@ -9,7 +9,7 @@ const TodoContextProvider = ({ children }) => {
   // Define fetchData function
   const fetchData = async () => {
     try {
-      const response = await axios.get('/api');
+      const response = await axios.get('https://todo-app-next-js-with-mongo-db.vercel.app/api');
       setTodoState(response.data.todos);
     } catch (error) {
       console.error("Error fetching data:", error);
