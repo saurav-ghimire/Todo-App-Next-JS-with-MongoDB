@@ -13,23 +13,22 @@ const TodoTable = () => {
   useEffect(() => {
     console.log('i am in useEffect');
     fetchData();
-  });
+  }, []); // Empty dependency array for fetch on mount
 
   console.log('i am after useEffect');
+  
   const handleDelete = async (id) => {
     const response = await axios.delete(`https://todo-app-next-js-with-mongo-db.vercel.app/api`, {
       params: {
         id: id
       }
     });
-    console.log('i am in Delete Fetch');
-    useEffect(() => {
-      fetchData();
-    });
+    
     if (response.status === 200) {
       toast.success('Item is Deleted', {
         autoClose: 3000,
       });
+      fetchData(); // Fetch updated data after delete
     }
   };
 
@@ -39,18 +38,16 @@ const TodoTable = () => {
       id:id
     }
    });
+   
    console.log('i am in Update Fetch');
-   useEffect(() => {
-    console.log('i am in useEffect');
-    fetchData();
-  });
-    if (response.status === 200) {
+   
+   if (response.status === 200) {
       toast.success('Item is Updated', {
         autoClose: 3000,
       });
+      fetchData(); // Fetch updated data after update
     }
   }
-
 
   return (
     <div className="max-w-4xl mx-auto mt-8 m-8">
