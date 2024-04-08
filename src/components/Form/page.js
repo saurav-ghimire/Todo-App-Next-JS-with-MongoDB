@@ -23,7 +23,9 @@ const TodoTable = () => {
       }
     });
     console.log('i am in Delete Fetch');
-    fetchData(); // Fetch updated data after delete
+    useEffect(() => {
+      fetchData();
+    });
     if (response.status === 200) {
       toast.success('Item is Deleted', {
         autoClose: 3000,
@@ -38,7 +40,10 @@ const TodoTable = () => {
     }
    });
    console.log('i am in Update Fetch');
-   fetchData(); // Fetch updated data after delete
+   useEffect(() => {
+    console.log('i am in useEffect');
+    fetchData();
+  });
     if (response.status === 200) {
       toast.success('Item is Updated', {
         autoClose: 3000,

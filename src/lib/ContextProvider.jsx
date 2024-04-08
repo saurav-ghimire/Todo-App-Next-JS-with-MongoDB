@@ -19,12 +19,8 @@ const TodoContextProvider = ({ children }) => {
   // useEffect to fetch data on mount and when todoState changes
   useEffect(() => {
     fetchData();
-  }, []); // Run once on mount
+  }); // Run once on mount
 
-  // Define fetchAndSetData function
-  const fetchAndSetData = () => {
-    fetchData(); // Call fetchData to update todoState
-  };
 
   // Define value object with todoState, setTodoState, and fetchAndSetData
   const value = {
