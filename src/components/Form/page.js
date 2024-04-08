@@ -4,16 +4,12 @@ import { useEffect, useState, useContext } from "react";
 import { toast } from 'react-toastify';
 import TodoContext from "@/lib/TodoContext";
 
-const TodoTable = () => {
+const TodoTable = async () => {
   
   const { todoState, setTodoState, fetchData } = useContext(TodoContext);
   
-  console.log('i am before useEffect');
-  
-  useEffect(() => {
-    console.log('i am in useEffect');
-    fetchData();
-  }); // Empty dependency array for fetch on mount
+  const response = await axios.get('https://todo-app-next-js-with-mongo-db.vercel.app/api');
+  setTodoState(response.data.todos);
 
   console.log('i am after useEffect');
   
