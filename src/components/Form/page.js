@@ -8,11 +8,12 @@ const TodoTable = () => {
   const { todoState, setTodoState, fetchAndSetData } = useContext(TodoContext);
   
   useEffect(() => {
+    console.log('i am loaded');
     fetchAndSetData();
   }, []);
-  
+
   const handleDelete = async (id) => {
-    const response = await axios.delete(`/api`, {
+    const response = await axios.delete(`https://todo-app-next-js-with-mongo-db.vercel.app/api`, {
       params: {
         id: id
       }
@@ -26,7 +27,7 @@ const TodoTable = () => {
   };
 
   const handleUpdate = async (id) => {
-   const response = await axios.put('/api', {}, {
+   const response = await axios.put('https://todo-app-next-js-with-mongo-db.vercel.app/api', {}, {
     params:{
       id:id
     }
